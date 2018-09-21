@@ -22,7 +22,7 @@ Public Class Form1
             Loop
             dr.Close()
 
-
+            'tes perubahan
             strsql = "select * from penerbit"
             cmd = New SqlCommand(strsql, conn)
             dr = cmd.ExecuteReader
