@@ -22,6 +22,7 @@ Partial Class Form1
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.btnSimpan = New System.Windows.Forms.Button()
         Me.tSinopsis = New System.Windows.Forms.TextBox()
         Me.tStok = New System.Windows.Forms.TextBox()
@@ -33,11 +34,16 @@ Partial Class Form1
         Me.Label3 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.LVbuku = New System.Windows.Forms.ListView()
+        Me.CMbuku = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.CMbuku.SuspendLayout()
         Me.SuspendLayout()
         '
         'btnSimpan
         '
-        Me.btnSimpan.Location = New System.Drawing.Point(85, 244)
+        Me.btnSimpan.Location = New System.Drawing.Point(85, 236)
         Me.btnSimpan.Name = "btnSimpan"
         Me.btnSimpan.Size = New System.Drawing.Size(75, 23)
         Me.btnSimpan.TabIndex = 21
@@ -127,11 +133,39 @@ Partial Class Form1
         Me.Label1.TabIndex = 11
         Me.Label1.Text = "Judul Buku"
         '
+        'LVbuku
+        '
+        Me.LVbuku.ContextMenuStrip = Me.CMbuku
+        Me.LVbuku.Location = New System.Drawing.Point(12, 291)
+        Me.LVbuku.Name = "LVbuku"
+        Me.LVbuku.Size = New System.Drawing.Size(586, 183)
+        Me.LVbuku.TabIndex = 22
+        Me.LVbuku.UseCompatibleStateImageBehavior = False
+        '
+        'CMbuku
+        '
+        Me.CMbuku.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditToolStripMenuItem, Me.DeleteToolStripMenuItem})
+        Me.CMbuku.Name = "CMbuku"
+        Me.CMbuku.Size = New System.Drawing.Size(153, 70)
+        '
+        'EditToolStripMenuItem
+        '
+        Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.EditToolStripMenuItem.Text = "Edit"
+        '
+        'DeleteToolStripMenuItem
+        '
+        Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.DeleteToolStripMenuItem.Text = "Delete"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(614, 293)
+        Me.ClientSize = New System.Drawing.Size(610, 486)
+        Me.Controls.Add(Me.LVbuku)
         Me.Controls.Add(Me.btnSimpan)
         Me.Controls.Add(Me.tSinopsis)
         Me.Controls.Add(Me.tStok)
@@ -145,6 +179,7 @@ Partial Class Form1
         Me.Controls.Add(Me.Label1)
         Me.Name = "Form1"
         Me.Text = "Form Buku"
+        Me.CMbuku.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -160,5 +195,9 @@ Partial Class Form1
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
+    Friend WithEvents LVbuku As System.Windows.Forms.ListView
+    Friend WithEvents CMbuku As System.Windows.Forms.ContextMenuStrip
+    Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents DeleteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
 
 End Class
