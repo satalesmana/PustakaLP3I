@@ -1,14 +1,16 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class Form1
+    Dim cmd_gl As SqlCommand    Dim dr_gl As SqlDataReader
+    Dim query_gl As String
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Call OpenKoneksi()
         Dim cmd As SqlCommand
         Dim dr As SqlDataReader
         Dim strsql As String
-
-
+        btnUpdate.Visible = False
+        tId.Visible = False
 
         Try
 
@@ -46,6 +48,7 @@ Public Class Form1
         Dim cmd As SqlCommand
         Dim dr As SqlDataReader
         Dim pengarang As Array = cbPengarang.Text.Split("-")
+        Dim penerbit As Array = cbPenerbit.Text.Split("-")
         Dim uid As String
         Dim cekStok As Boolean = False
 
@@ -71,7 +74,7 @@ Public Class Form1
 
 
             query = "INSERT INTO buku (BukuId,pengarangId,penerbit,judul,sinopsis,stok) " & _
-                    "VALUES (" & uid & "," & pengarang(0) & ",'" & cbPenerbit.Text & "', '" & tJudul.Text & "','" & tSinopsis.Text & "'," & tStok.Text & ")"
+                    "VALUES (" & uid & "," & pengarang(0) & ",'" & penerbit(0) & "', '" & tJudul.Text & "','" & tSinopsis.Text & "'," & tStok.Text & ")"
 
             cmd = New SqlCommand(query, conn)
             dr = cmd.ExecuteReader
@@ -120,5 +123,68 @@ Public Class Form1
             MsgBox(ex.ToString())
         End Try
        
+    End Sub
+
+    Private Sub EditToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditToolStripMenuItem.Click
+        Dim cmd As SqlCommand        Dim dr As SqlDataReader
+        Dim IdBuku As String
+        btnUpdate.Visible = True
+        btnSimpan.Visible = False
+
+        Try
+            IdBuku = LVbuku.SelectedItems(0).Text
+
+            Call OpenKoneksi()
+            Dim query As String = "SELECT buku.*, penerbit.penerbitId, penerbit.NamaPenerbit, " & _
+                    "pengarang.NamaPengarang FROM buku " & _
+                    "JOIN penerbit ON penerbit.penerbitId=buku.penerbit " & _
+                    "JOIN pengarang ON pengarang.pengarangId=buku.pengarangId " & _
+                    "WHERE buku.BukuId='" + IdBuku + "'"            cmd = New SqlCommand(query, conn)            dr = cmd.ExecuteReader
+            dr.Read()
+
+            tJudul.Text = dr("judul")
+            cbPengarang.Text = dr("pengarangId") & "-" & dr("NamaPengarang")
+            cbPenerbit.Text = dr("penerbitId") & "-" & dr("NamaPenerbit")
+            tStok.Text = dr("stok")
+            tSinopsis.Text = dr("sinopsis")
+            tId.Text = dr("BukuId")
+
+            dr.Close()
+            Call CloseKoneksi()
+        Catch ex As Exception
+            MsgBox(ex.ToString())
+        End Try
+    End Sub
+
+    Private Sub btnUpdate_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnUpdate.Click
+        btnSimpan.Visible = True
+        btnUpdate.Visible = False
+        Dim cmbPenerbit As Array = cbPenerbit.Text.Split("-")
+        Dim cmbPengarang As Array = cbPengarang.Text.Split("-")
+        Try
+
+            Call OpenKoneksi()
+            query_gl = "UPDATE buku SET " & _
+                "judul = '" & tJudul.Text & "'," & _
+                "pengarangId ='" & cmbPengarang(0) & "'," & _
+                "penerbit = '" & cmbPenerbit(0) & "', " & _
+                "stok = " & tStok.Text & "," & _
+                "sinopsis = '" & tSinopsis.Text & "' " & _
+                "WHERE BukuId = '" & tId.Text & "'"
+            cmd_gl = New SqlCommand(query_gl, conn)            dr_gl = cmd_gl.ExecuteReader
+            dr_gl.Close()
+            Call CloseKoneksi()
+            cler_from()
+            LVbuku.Clear()
+            show_list_buku()
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+    End Sub
+
+    Private Sub Button1_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles Button1.Click
+        btnSimpan.Visible = True
+        btnUpdate.Visible = False
+        cler_from()
     End Sub
 End Class

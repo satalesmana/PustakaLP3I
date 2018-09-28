@@ -38,6 +38,9 @@ Partial Class Form1
         Me.CMbuku = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
+        Me.btnUpdate = New System.Windows.Forms.Button()
+        Me.tId = New System.Windows.Forms.TextBox()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.CMbuku.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -146,12 +149,12 @@ Partial Class Form1
         '
         Me.CMbuku.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.EditToolStripMenuItem, Me.DeleteToolStripMenuItem})
         Me.CMbuku.Name = "CMbuku"
-        Me.CMbuku.Size = New System.Drawing.Size(153, 70)
+        Me.CMbuku.Size = New System.Drawing.Size(108, 48)
         '
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'DeleteToolStripMenuItem
@@ -160,11 +163,39 @@ Partial Class Form1
         Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
         Me.DeleteToolStripMenuItem.Text = "Delete"
         '
+        'btnUpdate
+        '
+        Me.btnUpdate.Location = New System.Drawing.Point(85, 236)
+        Me.btnUpdate.Name = "btnUpdate"
+        Me.btnUpdate.Size = New System.Drawing.Size(75, 23)
+        Me.btnUpdate.TabIndex = 23
+        Me.btnUpdate.Text = "Update"
+        Me.btnUpdate.UseVisualStyleBackColor = True
+        '
+        'tId
+        '
+        Me.tId.Location = New System.Drawing.Point(376, 67)
+        Me.tId.Name = "tId"
+        Me.tId.Size = New System.Drawing.Size(100, 20)
+        Me.tId.TabIndex = 24
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(166, 236)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(75, 23)
+        Me.Button1.TabIndex = 25
+        Me.Button1.Text = "Cancel"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(610, 486)
+        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.tId)
+        Me.Controls.Add(Me.btnUpdate)
         Me.Controls.Add(Me.LVbuku)
         Me.Controls.Add(Me.btnSimpan)
         Me.Controls.Add(Me.tSinopsis)
@@ -199,5 +230,8 @@ Partial Class Form1
     Friend WithEvents CMbuku As System.Windows.Forms.ContextMenuStrip
     Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DeleteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
+    Friend WithEvents btnUpdate As System.Windows.Forms.Button
+    Friend WithEvents tId As System.Windows.Forms.TextBox
+    Friend WithEvents Button1 As System.Windows.Forms.Button
 
 End Class
