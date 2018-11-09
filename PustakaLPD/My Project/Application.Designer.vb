@@ -32,7 +32,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global.PustakaLPD.Form1
+            Me.MainForm = Global.PustakaLPD.Pinjam
         End Sub
     End Class
 End Namespace

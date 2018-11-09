@@ -39,8 +39,11 @@ Partial Class Form1
         Me.EditToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.DeleteToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.btnUpdate = New System.Windows.Forms.Button()
-        Me.tId = New System.Windows.Forms.TextBox()
         Me.Button1 = New System.Windows.Forms.Button()
+        Me.tId = New System.Windows.Forms.TextBox()
+        Me.tFind = New System.Windows.Forms.TextBox()
+        Me.btnFind = New System.Windows.Forms.Button()
+        Me.Label6 = New System.Windows.Forms.Label()
         Me.CMbuku.SuspendLayout()
         Me.SuspendLayout()
         '
@@ -139,9 +142,9 @@ Partial Class Form1
         'LVbuku
         '
         Me.LVbuku.ContextMenuStrip = Me.CMbuku
-        Me.LVbuku.Location = New System.Drawing.Point(12, 291)
+        Me.LVbuku.Location = New System.Drawing.Point(12, 318)
         Me.LVbuku.Name = "LVbuku"
-        Me.LVbuku.Size = New System.Drawing.Size(586, 183)
+        Me.LVbuku.Size = New System.Drawing.Size(635, 192)
         Me.LVbuku.TabIndex = 22
         Me.LVbuku.UseCompatibleStateImageBehavior = False
         '
@@ -154,13 +157,13 @@ Partial Class Form1
         'EditToolStripMenuItem
         '
         Me.EditToolStripMenuItem.Name = "EditToolStripMenuItem"
-        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.EditToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
         Me.EditToolStripMenuItem.Text = "Edit"
         '
         'DeleteToolStripMenuItem
         '
         Me.DeleteToolStripMenuItem.Name = "DeleteToolStripMenuItem"
-        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(152, 22)
+        Me.DeleteToolStripMenuItem.Size = New System.Drawing.Size(107, 22)
         Me.DeleteToolStripMenuItem.Text = "Delete"
         '
         'btnUpdate
@@ -172,13 +175,6 @@ Partial Class Form1
         Me.btnUpdate.Text = "Update"
         Me.btnUpdate.UseVisualStyleBackColor = True
         '
-        'tId
-        '
-        Me.tId.Location = New System.Drawing.Point(376, 67)
-        Me.tId.Name = "tId"
-        Me.tId.Size = New System.Drawing.Size(100, 20)
-        Me.tId.TabIndex = 24
-        '
         'Button1
         '
         Me.Button1.Location = New System.Drawing.Point(166, 236)
@@ -188,11 +184,46 @@ Partial Class Form1
         Me.Button1.Text = "Cancel"
         Me.Button1.UseVisualStyleBackColor = True
         '
+        'tId
+        '
+        Me.tId.Location = New System.Drawing.Point(498, 12)
+        Me.tId.Name = "tId"
+        Me.tId.Size = New System.Drawing.Size(100, 20)
+        Me.tId.TabIndex = 24
+        '
+        'tFind
+        '
+        Me.tFind.Location = New System.Drawing.Point(396, 292)
+        Me.tFind.Name = "tFind"
+        Me.tFind.Size = New System.Drawing.Size(183, 20)
+        Me.tFind.TabIndex = 26
+        '
+        'btnFind
+        '
+        Me.btnFind.Location = New System.Drawing.Point(585, 289)
+        Me.btnFind.Name = "btnFind"
+        Me.btnFind.Size = New System.Drawing.Size(58, 25)
+        Me.btnFind.TabIndex = 27
+        Me.btnFind.Text = "Find"
+        Me.btnFind.UseVisualStyleBackColor = True
+        '
+        'Label6
+        '
+        Me.Label6.AutoSize = True
+        Me.Label6.Location = New System.Drawing.Point(321, 295)
+        Me.Label6.Name = "Label6"
+        Me.Label6.Size = New System.Drawing.Size(55, 13)
+        Me.Label6.TabIndex = 28
+        Me.Label6.Text = "Find Judul"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(610, 486)
+        Me.ClientSize = New System.Drawing.Size(659, 513)
+        Me.Controls.Add(Me.Label6)
+        Me.Controls.Add(Me.btnFind)
+        Me.Controls.Add(Me.tFind)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.tId)
         Me.Controls.Add(Me.btnUpdate)
@@ -231,7 +262,10 @@ Partial Class Form1
     Friend WithEvents EditToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents DeleteToolStripMenuItem As System.Windows.Forms.ToolStripMenuItem
     Friend WithEvents btnUpdate As System.Windows.Forms.Button
-    Friend WithEvents tId As System.Windows.Forms.TextBox
     Friend WithEvents Button1 As System.Windows.Forms.Button
+    Friend WithEvents tId As System.Windows.Forms.TextBox
+    Friend WithEvents tFind As System.Windows.Forms.TextBox
+    Friend WithEvents btnFind As System.Windows.Forms.Button
+    Friend WithEvents Label6 As System.Windows.Forms.Label
 
 End Class

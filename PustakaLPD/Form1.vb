@@ -1,16 +1,21 @@
 ﻿Imports System.Data.SqlClient
 
 Public Class Form1
-    Dim cmd_gl As SqlCommand    Dim dr_gl As SqlDataReader
+    Dim cmd_gl As SqlCommand
+    Dim dr_gl As SqlDataReader
     Dim query_gl As String
 
     Private Sub Form1_Load(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles MyBase.Load
         Call OpenKoneksi()
+
+
         Dim cmd As SqlCommand
         Dim dr As SqlDataReader
         Dim strsql As String
         btnUpdate.Visible = False
         tId.Visible = False
+
+        ' Dim todaysdate As String = String.Format("{0:yyyy/MM/dd}", DateTime.Now)
 
         Try
 
@@ -99,21 +104,63 @@ Public Class Form1
     End Sub
 
 
-    Private Sub show_list_buku()
-        Dim cmd As SqlCommand        Dim dr As SqlDataReader        LVbuku.View = View.Details        LVbuku.Columns.Add("NO", 50)        LVbuku.Columns.Add("JUDUL BUKU", 300)        LVbuku.Columns.Add("PENGARANG", 150)        LVbuku.Columns.Add("PENERBIT", 200)
+    Private Sub show_list_buku(Optional ByVal keyword As String = "")
+        Dim cmd As SqlCommand
+        Dim dr As SqlDataReader
+        Dim query_id As String
 
-        Try            Call OpenKoneksi()            Dim query_id As String = "select * from buku"            cmd = New SqlCommand(query_id, conn)            dr = cmd.ExecuteReader            Do While dr.Read                LVbuku.Items.Add(dr("BukuId"))                LVbuku.Items(LVbuku.Items.Count - 1).SubItems.Add(dr("judul"))                LVbuku.Items(LVbuku.Items.Count - 1).SubItems.Add(dr("pengarangId"))                LVbuku.Items(LVbuku.Items.Count - 1).SubItems.Add(dr("penerbit"))            Loop            dr.Close()            Call CloseKoneksi()        Catch ex As Exception            MsgBox(ex.ToString)        End Try
+        LVbuku.View = View.Details
+        LVbuku.Columns.Add("NO", 50)
+        LVbuku.Columns.Add("JUDUL BUKU", 300)
+        LVbuku.Columns.Add("PENGARANG", 150)
+        LVbuku.Columns.Add("PENERBIT", 200)
+        query_id = ""
+
+        Try
+            Call OpenKoneksi()
+
+            query_id += "SELECT buku.*, penerbit.NamaPenerbit, pengarang.NamaPengarang"
+            query_id += " FROM buku"
+            query_id += " JOIN penerbit ON penerbit.penerbitId = buku.penerbit"
+            query_id += " JOIN pengarang ON pengarang.pengarangId = buku.pengarangId"
+
+            If keyword.Trim <> "" Then
+                query_id += " WHERE judul LIKE '%" & keyword & "%'"
+            End If
+
+            cmd = New SqlCommand(query_id, conn)
+            dr = cmd.ExecuteReader
+
+
+            Do While dr.Read
+                LVbuku.Items.Add(dr("BukuId"))
+                LVbuku.Items(LVbuku.Items.Count - 1).SubItems.Add(dr("judul"))
+                LVbuku.Items(LVbuku.Items.Count - 1).SubItems.Add(dr("NamaPengarang"))
+                LVbuku.Items(LVbuku.Items.Count - 1).SubItems.Add(dr("NamaPenerbit"))
+            Loop
+            dr.Close()
+            Call CloseKoneksi()
+
+
+        Catch ex As Exception
+            MsgBox(ex.ToString)
+        End Try
+
+
     End Sub
 
     Private Sub DeleteToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles DeleteToolStripMenuItem.Click
         Dim IdBuku As String
-        Dim cmd As SqlCommand        Dim dr As SqlDataReader
+        Dim cmd As SqlCommand
+        Dim dr As SqlDataReader
 
         Try
             IdBuku = LVbuku.SelectedItems(0).Text
 
             Call OpenKoneksi()
-            Dim query As String = "delete from buku where BukuId='" + IdBuku + "'"            cmd = New SqlCommand(query, conn)            dr = cmd.ExecuteReader
+            Dim query As String = "delete from buku where BukuId='" + IdBuku + "'"
+            cmd = New SqlCommand(query, conn)
+            dr = cmd.ExecuteReader
             Call CloseKoneksi()
             dr.Close()
 
@@ -122,11 +169,12 @@ Public Class Form1
         Catch ex As Exception
             MsgBox(ex.ToString())
         End Try
-       
+
     End Sub
 
     Private Sub EditToolStripMenuItem_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles EditToolStripMenuItem.Click
-        Dim cmd As SqlCommand        Dim dr As SqlDataReader
+        Dim cmd As SqlCommand
+        Dim dr As SqlDataReader
         Dim IdBuku As String
         btnUpdate.Visible = True
         btnSimpan.Visible = False
@@ -139,7 +187,10 @@ Public Class Form1
                     "pengarang.NamaPengarang FROM buku " & _
                     "JOIN penerbit ON penerbit.penerbitId=buku.penerbit " & _
                     "JOIN pengarang ON pengarang.pengarangId=buku.pengarangId " & _
-                    "WHERE buku.BukuId='" + IdBuku + "'"            cmd = New SqlCommand(query, conn)            dr = cmd.ExecuteReader
+                    "WHERE buku.BukuId='" + IdBuku + "'"
+
+            cmd = New SqlCommand(query, conn)
+            dr = cmd.ExecuteReader
             dr.Read()
 
             tJudul.Text = dr("judul")
@@ -171,7 +222,8 @@ Public Class Form1
                 "stok = " & tStok.Text & "," & _
                 "sinopsis = '" & tSinopsis.Text & "' " & _
                 "WHERE BukuId = '" & tId.Text & "'"
-            cmd_gl = New SqlCommand(query_gl, conn)            dr_gl = cmd_gl.ExecuteReader
+            cmd_gl = New SqlCommand(query_gl, conn)
+            dr_gl = cmd_gl.ExecuteReader
             dr_gl.Close()
             Call CloseKoneksi()
             cler_from()
@@ -186,5 +238,17 @@ Public Class Form1
         btnSimpan.Visible = True
         btnUpdate.Visible = False
         cler_from()
+    End Sub
+
+    Private Sub btnFind_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles btnFind.Click
+        Dim keywod As String = tFind.Text
+        LVbuku.Clear()
+        show_list_buku(keywod)
+    End Sub
+
+    Private Sub tFind_TextChanged(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles tFind.TextChanged
+        Dim keywod As String = tFind.Text
+        LVbuku.Clear()
+        show_list_buku(keywod)
     End Sub
 End Class
